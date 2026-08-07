@@ -1,0 +1,42 @@
+@media(max-width:991px){
+    .form_main_row, .form_main_row-2 {
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+}
+}
+@media(max-width:767px){
+    .login_right_side {
+    padding: 30px 20px;
+    gap: 15px;
+}
+
+    .form_main_row, .form_main_row-2 {
+    grid-template-columns: repeat(1,1fr);
+    gap: 15px;
+}
+
+.helper{
+    display: none;
+}
+
+.breadcruumb_section {
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.breadcrumb_serch button svg{
+    display: none;
+}
+
+.breadcrumb_serch input {
+    min-width: 200px;
+}
+
+.follne_id ul {
+    flex-wrap: wrap;
+    gap: 13px;
+}
+
+.list_follow_us ul {
+    grid-template-columns: repeat(1, 1fr);
+}
+}
