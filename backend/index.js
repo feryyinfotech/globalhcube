@@ -1,4 +1,4 @@
-const PORT = process.env.PORT || 2000; // ✅ FIX 1: iisnode Windows named pipe support
+const PORT = process.env.PORT ||5000; 
 const express = require("express");
 const bodyParser = require("body-parser");
 require("dotenv").config({ path: __dirname + "/.env" });

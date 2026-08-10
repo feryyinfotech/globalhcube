@@ -132,10 +132,10 @@ const EmpRegistration = () => {
                   <TextField
                     fullWidth
                     size="small"
-                    type="number"
-                    id="lead_mob_no"
-                    name="lead_mob_no"
-                    placeholder="+91 98XXX XXXXX"
+                    type="text"
+                    id="mobile"
+                    name="mobile"
+                    placeholder="Enter mobile number"
                     value={fk.values.mobile}
                     onChange={fk.handleChange}
                   />
@@ -148,8 +148,9 @@ const EmpRegistration = () => {
                   <TextField
                     fullWidth
                     size="small"
-                    id="lead_email"
-                    name="lead_email"
+                    type="email"
+                    id="email"
+                    name="email"
                     placeholder="name@example.com"
                     value={fk.values.email}
                     onChange={fk.handleChange}
@@ -160,12 +161,12 @@ const EmpRegistration = () => {
                 <label for="name">Password <i>*</i></label>
                 <div className='form_input'>
                   <svg viewBox="0 0 24 24">
-                    <rect x="4" y="10" width="16" height="10" rx="2"/>
-                    <path d="M8 10V7a4 4 0 1 1 8 0v3"/>
-                    <circle cx="12" cy="15" r="1"/>
-                    <path d="M12 16v2"/>
+                    <rect x="4" y="10" width="16" height="10" rx="2" />
+                    <path d="M8 10V7a4 4 0 1 1 8 0v3" />
+                    <circle cx="12" cy="15" r="1" />
+                    <path d="M12 16v2" />
                   </svg>
-                    <TextField
+                  <TextField
                     fullWidth
                     size="small"
                     type="password"
@@ -281,7 +282,7 @@ const EmpRegistration = () => {
                     value={fk.values.work_preference}
                     onChange={fk.handleChange}
                   >
-                    
+
                     <MenuItem value="">Select</MenuItem>
                     <MenuItem value="MLM">MLM</MenuItem>
                     <MenuItem value="REAL ESTATE">REAL ESTATE</MenuItem>
@@ -291,21 +292,21 @@ const EmpRegistration = () => {
             </div>
           </div>
           <div className='form_footer'>
-              <span class="note">Saved leads appear in your lead list straight away.</span>
-              <div
-                className="flex justify-end gap-2.5">
-                <Button className="main_btn_1"
-                  variant="outlined"
-                  onClick={fk.handleReset}>
-                  Clear Form
-                </Button>
-                <Button className="main_btn_2"
-                  variant="contained"
-                  onClick={fk.handleSubmit}>
-                  <svg viewBox="0 0 24 24"><path d="M4 12.5 9 17.5 20 6.5" /></svg> Submit Now
-                </Button>
-              </div>
+            <span class="note">Saved leads appear in your lead list straight away.</span>
+            <div
+              className="flex justify-end gap-2.5">
+              <Button className="main_btn_1"
+                variant="outlined"
+                onClick={fk.handleReset}>
+                Clear Form
+              </Button>
+              <Button className="main_btn_2"
+                variant="contained"
+                onClick={fk.handleSubmit}>
+                <svg viewBox="0 0 24 24"><path d="M4 12.5 9 17.5 20 6.5" /></svg> Submit Now
+              </Button>
             </div>
+          </div>
         </div>
       </div>
     </>

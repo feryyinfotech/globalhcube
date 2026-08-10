@@ -22,11 +22,11 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => {
     if (response?.data?.msg === "Invalid Token") {
-      toast("Logged in on another device.", { id: 1 });
-      localStorage.clear();
-      sessionStorage.clear();
-      window.location.href = `${front_end_domain}`;
-      return Promise.reject(new Error("Invalid Token"));
+      // toast("Logged in on another device.", { id: 1 });
+      // localStorage.clear();
+      // sessionStorage.clear();
+      // window.location.href = `${front_end_domain}`;
+      // return Promise.reject(new Error("Invalid Token"));
     }
     return response;
   },
