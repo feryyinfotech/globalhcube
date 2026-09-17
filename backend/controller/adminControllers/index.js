@@ -637,13 +637,6 @@ exports.basicLeadList = async (req, res) => {
       baseQuery += clause;
       hasWhere = true;
     };
-    // Basic Lead only shows leads that have been assigned to a *currently
-    // existing* employee. Some old claim rows point at emp_ids that were
-    // later deleted from emp_registration_details (orphaned claims) — those
-    // must NOT count as "assigned" here, so the INNER JOIN below excludes them.
-    appendCondition(
-      "EXISTS (SELECT 1 FROM claimed_interested_leads c INNER JOIN emp_registration_details e ON e.emp_id = c.clm_emp_id WHERE c.clm_lead_id = lead_id)"
-    );
     if (start_date && end_date) {
       appendCondition("DATE(lead_created_at) >= ? AND DATE(lead_created_at) <= ?");
       reP.push(

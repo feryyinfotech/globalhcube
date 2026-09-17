@@ -1,11 +1,14 @@
 const { Sequelize } = require("sequelize");
+require("dotenv").config();
+
 const sequelize = new Sequelize(
-  "admin_globalhcubeslfj",
-  "globalhcubeslfj",
-  "4%maqwU$f30EbdEn",
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
     dialect: "mysql",
-    host: "43.242.226.140",
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT || 3306,
     logging: false,
   }
 );

@@ -1,6 +1,10 @@
 "user-strict";
 const express = require("express");
 const {
+  triggerHousingLeadsSync,
+  previewHousingLeads,
+} = require("../controller/integrationControllers/housingController");
+const {
   adminLogin,
   employeeRegistration,
   updateEmployeeDetails,
@@ -60,6 +64,10 @@ const { verify } = require("jsonwebtoken");
 
 const router = express.Router();
 router.post("/admin-login", isCheckParamer, adminLogin);
+// Read-only preview — see raw leads + project names WITHOUT inserting anything
+router.get("/housing-leads-preview", isAdmin, previewHousingLeads);
+// Manual trigger for Housing.com broker-leads sync (also runs automatically via cron, see index.js)
+router.get("/housing-leads-sync", isAdmin, triggerHousingLeadsSync);
 router.post(
   "/employee-registration",
   // isCheckParamer,

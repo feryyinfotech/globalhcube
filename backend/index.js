@@ -13,6 +13,7 @@ const fileUpload = require("express-fileupload");
 const { initializeSocket } = require("./config/io.config");
 const scheduleTask = require("./utils/ScheduleJob");
 const { randomStrAlphabetNumeric } = require("./helper/utilityHelper");
+const { startHousingLeadsCron } = require("./integrations/housing/cron");
 
 initializeSocket(httpServer);
  
@@ -40,6 +41,7 @@ app.get("*", (req, res) => {
 });
  
 scheduleTask();
+startHousingLeadsCron();
 
 // Start the server
 httpServer.listen(PORT, () => {

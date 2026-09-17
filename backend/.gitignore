@@ -1,5 +1,9 @@
-/node_modules
-bala-ji-sales-9a66caf8aa25.json
-*.json.key
+node_modules/
+.env
+.env.*
+!.env.example
+npm-debug.log*
 *-firebase-adminsdk-*.json
+*service-account*.json
 mrm-lead-firebase-adminsdk-fbsvc-18ef37a985.json
+bala-ji-sales-9a66caf8aa25.json
