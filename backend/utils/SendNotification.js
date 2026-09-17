@@ -16,6 +16,8 @@ async function sendPushNotification(token, data = {}) {
     },
   };
 
+  if (!admin.apps.length) return null;
+
   try {
     const response = await admin.messaging().send(message);
     return response;

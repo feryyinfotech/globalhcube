@@ -1,5 +1,3 @@
-// sendNotification.js
-const admin = require("../config/firebase.config");
 const { queryDb } = require("../helper/utilityHelper");
 async function ActivityLogsFuns(emp_id, lead_id, logs_for, title, description) {
   //1> Lead Details 
