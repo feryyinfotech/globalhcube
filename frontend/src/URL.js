@@ -4,3 +4,4 @@
 export const front_end_domain = 'https://globalhcubeservices.org';
 export const baseUrl = 'https://globalhcubeservices.org';
 
+// check
