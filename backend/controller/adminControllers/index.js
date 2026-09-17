@@ -2962,16 +2962,15 @@ exports.proJectListDropDown = async (req, res) => {
   }
 };
 
-// Powers the status tabs on "Basic Lead" — that page only lists ASSIGNED leads
-// (see basicLeadList), so its tile counts must be scoped the same way, unlike
-// getAdminDashboardBucketCount below (which counts all leads, for the Dashboard).
+// Powers the status tabs on "Basic Lead". basicLeadList (the list itself)
+// shows every lead regardless of assignment/claim status, so these tile
+// counts are scoped the same way — unassigned leads count too.
 exports.getBasicLeadBucketCount = async (req, res) => {
   try {
     let bucketResult = await queryDb(
       `SELECT ld_bkt_status, COUNT(*) as cnt
        FROM lead_basic_details
        INNER JOIN lead_bucket_status ON ld_bkt_id = lead_bkt_status
-       WHERE EXISTS (SELECT 1 FROM claimed_interested_leads c INNER JOIN emp_registration_details e ON e.emp_id = c.clm_emp_id WHERE c.clm_lead_id = lead_id)
        GROUP BY lead_bkt_status;`,
       []
     );
@@ -2982,8 +2981,7 @@ exports.getBasicLeadBucketCount = async (req, res) => {
     const freshResult = await queryDb(
       `SELECT COUNT(*) as cnt
        FROM lead_basic_details lb
-       WHERE EXISTS (SELECT 1 FROM claimed_interested_leads c INNER JOIN emp_registration_details e ON e.emp_id = c.clm_emp_id WHERE c.clm_lead_id = lb.lead_id)
-       AND NOT EXISTS (SELECT 1 FROM lead_followups WHERE follow_lead_id = lb.lead_id);`,
+       WHERE NOT EXISTS (SELECT 1 FROM lead_followups WHERE follow_lead_id = lb.lead_id);`,
       []
     );
     bucketResult?.push({

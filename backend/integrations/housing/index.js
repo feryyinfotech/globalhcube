@@ -128,6 +128,28 @@ function matchProject(projects, housingProjectName) {
   );
 }
 
+/**
+ * Creates a new active project_details row for a Housing.com project_name we
+ * haven't seen before, so leads for it are never skipped. Also appends it to
+ * the in-memory `projects` list so later leads in the same sync run reuse it
+ * instead of creating duplicates.
+ */
+async function createProjectFromHousingName(projects, projectName) {
+  const title = String(projectName || "").trim();
+  const proUniqueId = "PRO" + randomLeadUniqueId().replace("LEAD", "");
+  await queryDb(
+    "INSERT INTO `project_details`(pro_unique_id,`pro_title`, `pro_sort_description`, `pro_full_description`, `pro_image`) VALUES (?,?, ?, ?, ?);",
+    [proUniqueId, title, "Auto-created from Housing.com lead sync", "", ""]
+  );
+  const created = await queryDb(
+    "SELECT `pro_id`,`pro_title` FROM `project_details` WHERE `pro_unique_id` = ? LIMIT 1;",
+    [proUniqueId]
+  );
+  const newProject = created?.[0];
+  if (newProject) projects.push(newProject);
+  return newProject;
+}
+
 function randomLeadUniqueId() {
   const numeric = "1234567890";
   let ans = "";
@@ -178,13 +200,13 @@ async function syncHousingLeads({ start_date, end_date, per_page, flat_ids } = {
         continue;
       }
 
-      const matchedProject = matchProject(projects, project_name);
+      let matchedProject = matchProject(projects, project_name);
       if (!matchedProject) {
-        summary.skipped.push({
-          lead,
-          reason: `No matching project_details row for project_name "${project_name}". Add/rename the project in project_details, or extend matchProject().`,
-        });
-        continue;
+        if (!String(project_name || "").trim()) {
+          summary.skipped.push({ lead, reason: "Missing project_name, can't create a project" });
+          continue;
+        }
+        matchedProject = await createProjectFromHousingName(projects, project_name);
       }
 
       // Dedupe: same phone + same project already imported => skip
